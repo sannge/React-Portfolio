@@ -1,0 +1,54 @@
+.Skill{
+    display: grid;
+    text-align: center;
+    width: 90%;
+    margin: auto;
+    
+}
+.title{
+    color:rgb(42, 127, 191);
+}
+
+.skillData{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    font-weight: 500;
+    padding: .5rem 1rem;
+    margin-bottom: 16px;
+    border-radius: .5rem;
+    box-shadow: 0 4px 25px rgba(14,36,49,.15);
+    z-index: -1;
+}
+
+.skillIcon{
+    font-size: 2rem;
+    margin-right: 8px;
+    color:rgb(42, 127, 191);
+
+}
+
+.skillNames{
+  
+    display: flex;
+    align-items: center;
+}
+
+.skillBars{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background: rgb(42, 127, 191);
+    height: .25rem;
+    border-radius: .5rem;
+    z-index: -1;
+
+}
+
+
+@media screen and (min-width: 781px){
+    .Skill{
+        width: 60%;
+    }
+}

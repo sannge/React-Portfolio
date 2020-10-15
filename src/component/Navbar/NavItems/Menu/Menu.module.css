@@ -1,0 +1,106 @@
+.Menu{
+    margin-right: -4%;
+    margin-top: 0;
+    
+
+}
+
+
+.Menu ul{
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    flex:1;
+    justify-content: space-between;
+    
+}
+.Menu .itemsContainer ul li{
+    cursor: pointer;
+    transition: transform 0.3s ease-in;
+    margin-right: 60px;
+    margin-top: 15px;
+    
+}
+
+.Menu ul li .link{
+    color: #242424;
+    font-size: 20x;
+    text-decoration: none;  
+}
+
+.Menu ul li .link i {
+    margin-right: 10px;
+}
+
+.Menu ul li .link:hover{
+    padding-bottom: 15px;
+    border-bottom: 5px solid rgba(42, 127, 191);
+}
+
+
+@media screen and (max-width: 780px){
+    .Menu{
+        margin-right: 0;
+        position: fixed;
+        top: 0px;
+        right:-100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        height: 100vh;
+        background: rgba(53, 55, 59);
+       
+        transition: transform 0.3s ease-in; 
+
+    }
+    
+    .Menu.active{
+        transform: translateX(-100%);
+        transition: all 0.3s ease-in;
+    }
+    .Menu .itemsContainer{
+        position: absolute;
+        top: 45%;
+        transform: translateY(-50%);   
+    }
+    
+    .Menu ul{
+        list-style: none;
+        /* text-align: center; */
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .Menu ul li{
+        padding: 25px 0;
+        cursor: pointer;
+        transition: transform 0.3s ease-in;
+    }
+    .Menu ul li:hover{
+        transform: scale(1.2);
+        
+        
+    }
+    
+    .Menu ul li .link{
+        color: #f2f2f2;
+        font-weight: bold;
+        font-size: 25px;
+        text-decoration: none;  
+        transition: color 0.3s ease-in;
+        
+    }
+    
+    .Menu ul li .link i {
+        margin-right: 10px;
+        
+    }
+    
+    .Menu ul li .link:hover{
+        color: rgb(156, 167, 173);
+        border-bottom: none;
+    }
+    
+
+
+}

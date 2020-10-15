@@ -1,0 +1,21 @@
+.Toggler{
+    font-size: 40px;
+    color: #242424;
+    cursor: pointer;
+    margin-top: 40px;
+    transform: translateY(-20%);
+    margin-right: 4%;
+    transition: font-size 0.1s ease-in;
+    z-index: 1;
+
+}
+
+.Toggler:hover{
+    font-size: 45px;
+}
+
+@media screen and (min-width: 781px){
+   .Toggler{
+       display: none;
+   }
+}

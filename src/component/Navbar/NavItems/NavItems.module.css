@@ -1,0 +1,6 @@
+.NavItems{
+    max-width: 1350px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+}

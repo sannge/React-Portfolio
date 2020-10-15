@@ -1,0 +1,30 @@
+.Footer{
+    
+    height: 240px;
+    background: #242424;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.Footer .Link{
+    margin-top: -20px;
+    text-decoration: none;
+    color: white;
+}
+
+.Footer .social{
+    margin-top: -25px;
+    
+}
+
+.Footer .social i{
+    margin: 45px 25px;
+    color: #f4f4f4;
+}
+
+.Footer small{
+    color: #f4f4f4;
+   
+}

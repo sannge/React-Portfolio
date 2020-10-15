@@ -1,0 +1,18 @@
+.Logo{
+    cursor: pointer;
+    margin-top: 40px;
+    transform: translateY(-50%);
+    margin-left: 4%;
+}
+
+.Logo .link{
+    text-decoration: none;
+}
+
+.Logo h1{
+    font-size: 35px;
+    color: #242424;
+    transition: color 0.3s;
+    font-weight: lighter;
+    
+}
