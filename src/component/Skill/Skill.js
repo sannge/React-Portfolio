@@ -33,7 +33,7 @@ const skills = [
     },
     {
         name: 'ReactJS',
-        percent: '90%',
+        percent: '96%',
         class: 'fab fa-react'
     },
     {

@@ -9,6 +9,7 @@
     height: 250px;
     margin: auto;
     background: #242424;
+    
 
     
  
@@ -24,20 +25,30 @@
 .Aboutme p{
     margin-top: 0;
     color: #b2b2b2;
-    padding: 15px 50px;
+    padding: 15px 35px;
   
 }
 
 @media screen and (min-width: 781px){
     .AboutmeContainer{
-        width: 96%;
-       
+        width:88%;
+        box-shadow: 0 2px 1px #ccc;
+
         margin: auto;
         max-width: 1350px;
     }
     .Aboutme h2{
         color: rgb(42, 127, 191);
     }
+
+    .Aboutme p{
+        margin-top: 0;
+        color: #b2b2b2;
+        padding: 15px 0;
+      
+    }
+
+
     .Aboutme{
         width: 75%;
         background: white;

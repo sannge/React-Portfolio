@@ -5,9 +5,12 @@ function Aboutme() {
         <div className={classes.AboutmeContainer}>
         <div className={classes.Aboutme}>
             <h2>About</h2>
-            <p>I am Senior Computer Science student graduating on December 2020 with B.S in Computer Science. 
-                I am actively looking for any open full-time software development/software engineering opportunities. 
-                I am also very keen to learn new skills and be more experienced.</p>
+            <p>I am a proactive university student (BS in Computer Science) 
+                currently attending Pacific Lutheran University. My career goal
+                is to become a Successful FullStack Developer. In my free time, I enjoy 
+                building projects or learning new lanagues and frameworks. 
+            </p>
+            
         </div>
         </div>
         

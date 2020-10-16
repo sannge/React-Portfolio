@@ -41,7 +41,7 @@ function Home() {
         <div className={classes.Aboutme}>
         <Aboutme/>
         </div>
-        <div>
+        <div className={classes.Skill}>
             <Skill/>
         </div>
     </>

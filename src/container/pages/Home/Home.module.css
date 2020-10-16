@@ -11,12 +11,12 @@
 }
 
 .Home .Header{
-
+    
     grid-area: a;
 }
 .Home .Button{
     
-
+    
     grid-area: b;
 }
 
@@ -43,6 +43,7 @@
 .Home .Image{
     grid-area: d;
     justify-self: end;
+    margin-right: 10%;
 
 }
 @media screen and (min-width: 781px){
@@ -57,17 +58,18 @@
     
     }
     .Home .Header{
-
+        margin-left: 10%;
         grid-area: a;
     }
     .Home .Button{
-        
+        margin-left: 10%;
         grid-area: b;
     }
     
     .Home .social{
         grid-area: c;
         margin-top: 20px;
+        margin-left: 10%;
         display: flex;
         flex-flow: row;
     }
@@ -94,4 +96,13 @@
         max-width: 1650px;
         background: #242424;
     } */
+
+    .Aboutme{
+        margin-top: 10px;
+    }
+
+    .Skill{
+        
+    }
+    
 }
