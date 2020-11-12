@@ -41,6 +41,37 @@
 }
 
 .active {
-    transform: translateY(-850px);
+    transform: translateY(-820px);
     opacity: 1;
+}
+
+@media screen and (max-width: 780px) {
+    .ChatBody {
+        position: fixed;
+        right: -400px;
+        bottom: 3%;
+        width: 400px;
+        height: 80%;
+        background: white;
+        box-shadow: 0 2px 10px #ccc;
+        transition: all .3s ease-in-out;
+        opacity: 0;
+        border-radius: 10px 10px 0 0;
+        overflow-y:scroll;
+    }
+    
+    .closeIcon {
+        font-size: 1rem;
+        color: #f4f4f4;
+        cursor: pointer;
+        margin: 20px;
+    }
+    
+    .active {
+        /* transform: translateY(-850px); */
+        /* transform: translateY(90%); */
+        transform: translateY(0);
+        transform: translateX(-450px);
+        opacity: 1;
+    }
 }
