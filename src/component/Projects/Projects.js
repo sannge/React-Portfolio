@@ -37,7 +37,7 @@ function Projects({state,text,setText,submitted,setSubmitted,paginateData: {offs
         } else {
             let d = (
                 state.map((s,index) => (
-                    s.header.toLowerCase().replace(/\s/g, '').includes(text) ? (
+                    s.header.toLowerCase().replace(/\s/g, '').includes(text.toLowerCase()) ? (
                         <div key={index} className={classes.Projects}>
                           <a href={s.source} target="_blank" rel = "noopener noreferrer"><Project project={s}/></a>
                         </div>

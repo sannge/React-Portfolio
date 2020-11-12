@@ -17,7 +17,7 @@ function ChatBody({onClick,chatBodyClasses,iconClasses}) {
             </div>
 
             <div className={classes.typeArea}>
-           <input type="text" placeholder="type a message"/>
+           <input type="text" placeholder="Type a message"/>
            <button className={classes.button}><i className="fas fa-paper-plane"></i></button>
            </div>
            <div className={classes.extraArea}>
