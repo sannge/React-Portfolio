@@ -13,7 +13,7 @@ function Aboutme() {
             <p>I am a proactive student (BS in Computer Science)
                 currently attending Pacific Lutheran University graduating 
                 on December 2020. I spend most of my time learning new topics 
-                on web development and building projects with them. I am comforable 
+                on web development and building projects with them. I am comfortable 
                 building MERN stack web applications and familiar building chat applications,
                 e-commerce websites, and more. My hobbies are Coding, Hiking, and Cooking.
             </p>
