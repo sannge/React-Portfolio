@@ -21,7 +21,7 @@ function ChatBody({onClick,chatBodyClasses,iconClasses}) {
            <button className={classes.button}><i className="fas fa-paper-plane"></i></button>
            </div>
            <div className={classes.extraArea}>
-              <small>Currently on Development</small>
+              <small>Currently Under Development</small>
            </div>
            
         </div>

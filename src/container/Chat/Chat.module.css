@@ -48,9 +48,9 @@
 @media screen and (max-width: 780px) {
     .ChatBody {
         position: fixed;
-        right: -400px;
+        right: -160%;
         bottom: 3%;
-        width: 400px;
+        width: 80%;
         height: 80%;
         background: white;
         box-shadow: 0 2px 10px #ccc;
@@ -71,7 +71,7 @@
         /* transform: translateY(-850px); */
         /* transform: translateY(90%); */
         transform: translateY(0);
-        transform: translateX(-450px);
+        transform: translateX(-213%);
         opacity: 1;
     }
 }
