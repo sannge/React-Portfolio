@@ -1,6 +1,6 @@
 import React from 'react'
 import classes from './Menu.module.css'
-import {Link} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 function Menu(props) {
     let CLASS = [classes.Menu];
     if(props.openMenu){
@@ -11,28 +11,28 @@ function Menu(props) {
             <div className={classes.itemsContainer}>
             <ul>
                 <li>
-                   <Link  onClick={props.clickHandler} className={[classes.link]} to='/'>
+                   <NavLink  exact onClick={props.clickHandler} activeClassName={classes.active} className={classes.link} to='/'>
                        <i className={'fas fa-home'}></i>
                        Home
-                       </Link> 
+                       </NavLink> 
                 </li>
                 <li>
-                   <Link onClick={props.clickHandler} className={classes.link} to='/experience'>
+                   <NavLink exact onClick={props.clickHandler} activeClassName={classes.active} className={classes.link} to='/experience'>
                    <i className={'fas fa-briefcase'}></i>
                        Experience
-                       </Link> 
+                       </NavLink> 
                 </li>
                 <li>
-                   <Link onClick={props.clickHandler} className={classes.link} to='/projects'>
+                   <NavLink exact onClick={props.clickHandler} activeClassName={classes.active} className={classes.link} to='/projects'>
                    <i className={'fas fa-folder-open'}></i>
                        Projects
-                       </Link> 
+                       </NavLink> 
                 </li>
                 <li>
-                   <Link onClick={props.clickHandler} className={classes.link}to='/contact'>
+                   <NavLink exact onClick={props.clickHandler} activeClassName={classes.active} className={classes.link}to='/contact'>
                    <i className={'fas fa-address-book'}></i>
                        Contact
-                       </Link> 
+                       </NavLink> 
                 </li>
             </ul>
             </div>

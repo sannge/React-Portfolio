@@ -1,17 +1,25 @@
 import React from 'react'
 import classes from './Aboutme.module.css'
+import AboutmeProfile from '../../assets/AboutmeProfile.jpg'
 function Aboutme() {
     return (
         <div className={classes.AboutmeContainer}>
-        <div className={classes.Aboutme}>
             <h2>About</h2>
-            <p>I am a proactive university student (BS in Computer Science) 
-                currently attending Pacific Lutheran University. My career goal
-                is to become a Successful FullStack Developer. In my free time, I enjoy 
-                building projects or learning new lanagues and frameworks. 
+            <div className={classes.AboutmeMainAndProfile}>
+                {/* <div className={classes.AboutmeImage}>
+                    <img src={AboutmeProfile} alt="profile"/>
+                </div> */}
+            <div className={classes.AboutmeMain}>
+            <p>I am a proactive student (BS in Computer Science)
+                currently attending Pacific Lutheran University graduating 
+                on December 2020. I spend most of my time learning new topics 
+                on web development and building projects with them. I am comforable 
+                building MERN stack web applications and familiar building chat applications,
+                e-commerce websites, and more. My hobbies are Coding, Hiking, and Cooking.
             </p>
+            </div>
+            </div>
             
-        </div>
         </div>
         
     )

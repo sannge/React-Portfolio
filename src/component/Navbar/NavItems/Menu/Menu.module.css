@@ -1,8 +1,6 @@
 .Menu{
-    margin-right: -4%;
+    margin-right: -2%;
     margin-top: 0;
-    
-
 }
 
 
@@ -12,6 +10,7 @@
     list-style: none;
     flex:1;
     justify-content: space-between;
+    margin-right: 40px;
     
 }
 .Menu .itemsContainer ul li{
@@ -37,8 +36,18 @@
     border-bottom: 5px solid rgba(42, 127, 191);
 }
 
+.itemsContainer .active {
+    padding-bottom: 15px;
+    border-bottom: 5px solid rgba(42, 127, 191);
+}
 
 @media screen and (max-width: 780px){
+
+    .itemsContainer .active {
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+
     .Menu{
         margin-right: 0;
         position: fixed;
@@ -51,7 +60,7 @@
         background: rgba(53, 55, 59);
        
         transition: transform 0.3s ease-in; 
-
+        z-index: 9999;
     }
     
     .Menu.active{

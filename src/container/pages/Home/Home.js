@@ -4,7 +4,10 @@ import profileImage from '../../../assets/mywebsiteprofile2.jpg'
 import Button from '../../../component/Button/Button'
 import Aboutme from '../../../component/Aboutme/Aboutme'
 import Skill from '../../../component/Skill/Skill'
+import Resume from '../../../assets/project-images/MyResume.pdf'
+
 function Home() {
+
     return (
         <>
         <div className={classes.Home}>
@@ -21,7 +24,13 @@ function Home() {
              </span><br/> Software Engineer</h1>
             </div>
              <div className={classes.Button}>
-             <Button>Contact</Button>
+        
+                <a href={Resume} download="San Nge's Resume.pdf" target="_blank">
+                    <Button>
+                    <i className="fas fa-download" style={{marginRight:'3px'}}/>Resume
+                    </Button>
+                </a>
+
              </div>
              <div className={classes.social}>
                  <a href="https://www.facebook.com/sam.nge.507">
@@ -38,11 +47,13 @@ function Home() {
             <img src={profileImage} alt=""/>
             </div>
         </div>
+        <div className={classes.stats}>
         <div className={classes.Aboutme}>
         <Aboutme/>
         </div>
         <div className={classes.Skill}>
             <Skill/>
+        </div>
         </div>
     </>
     )

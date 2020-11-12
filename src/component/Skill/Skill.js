@@ -27,9 +27,9 @@ const skills = [
         class: 'fab fa-css3-alt'
     },
     {
-        name: 'Javascript',
-        percent: '75%',
-        class: 'fab fa-node-js'
+        name: 'Databases',
+        percent: '80%',
+        class: 'fas fa-database'
     },
     {
         name: 'ReactJS',

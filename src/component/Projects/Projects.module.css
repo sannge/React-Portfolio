@@ -1,0 +1,55 @@
+.Projects {
+    position: relative;
+}
+
+.Projects a {
+   color: black;
+   text-decoration: none;
+}
+
+.Projects {
+    transition: transform .3s ease, top .3s ease, scale .3s ease;
+}
+
+.Projects:hover {
+    transform: scale(1.02);
+}
+
+.Search {
+    margin-bottom: 85px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    outline: none;
+    transform: translateX(-30px);
+  }
+  .pagination > .active > a{
+    background-color: rgba(42, 127, 191) ;
+    border-color:  rgba(42, 127, 191) ;
+    color: #fff;
+  }
+  .pagination > li > a{
+    border: 1px solid  rgba(42, 127, 191) ;
+    border-radius: 30%;
+    margin: 2px;
+    padding: 5px 10px;
+    outline: none;
+    cursor: pointer;
+  }
+  .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
+    background-color:  rgba(42, 127, 191) ;
+    border-color: rgba(42, 127, 191);
+    outline: none;
+  }
+  .pagination > li > a, .pagination > li > span{
+    color:  rgba(42, 127, 191);
+  }
+  .pagination > li:first-child > a, .pagination > li:first-child > span, .pagination > li:last-child > a, .pagination > li:last-child > span{
+    border-radius: circle;
+    margin:2px;
+  }
+

@@ -1,56 +1,86 @@
-.Aboutme{
-    box-sizing: border-box;
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    width: 100%;
-    height: 250px;
+.AboutmeContainer {
+    width: 92%;
+    height: 200px;
     margin: auto;
-    background: #242424;
-    
-
-    
- 
-    
-}
-.Aboutme h2{
-    padding-top: 0;
-    margin-bottom: 0;
-    color:#f2f2f2; 
-    
 }
 
-.Aboutme p{
-    margin-top: 0;
-    color: #b2b2b2;
-    padding: 15px 35px;
-  
+.AboutmeContainer h2 {
+    text-align: center;
+    color:  rgb(42, 127, 191);;
 }
 
-@media screen and (min-width: 781px){
-    .AboutmeContainer{
-        width:88%;
-        box-shadow: 0 2px 1px #ccc;
+.AboutmeMainAndProfile {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-flow: row;
+}
 
+.AboutmeMainAndProfile .AboutmeImage{
+    width: 200px;
+    height: 150px;
+    background: black;
+}
+
+.AboutmeMainAndProfile .AboutmeImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+@media screen and (max-width: 780px) {
+    .AboutmeContainer {
+        width: 100%;
+        height: 100%;
         margin: auto;
-        max-width: 1350px;
     }
-    .Aboutme h2{
-        color: rgb(42, 127, 191);
+    
+    .AboutmeContainer h2 {
+        text-align: center;
+        color:  rgb(42, 127, 191);;
     }
-
-    .Aboutme p{
-        margin-top: 0;
-        color: #b2b2b2;
-        padding: 15px 0;
-      
+    
+    .AboutmeMainAndProfile {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-flow: row;
     }
-
-
-    .Aboutme{
-        width: 75%;
-        background: white;
+    
+    .AboutmeMainAndProfile .AboutmeImage{
+        width: 200px;
+        background: black;
+    }
+    
+    .AboutmeMainAndProfile .AboutmeImage img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+    
+    .AboutmeMainAndProfile .AboutmeMain {
+        text-align: center;
+        margin: 0 4% 0 4%;
     }
 }
+
+/* @media screen and (max-width: 280px ) {
+    .AboutmeContainer {
+        height: 480px;
+    }
+}
+
+@media screen and (max-width: 320px ) {
+    .AboutmeContainer {
+        height: 420px;
+    }
+}
+
+@media screen and (max-width: 400px ) {
+    .AboutmeContainer {
+        height: 370px;
+    }
+} */
+
