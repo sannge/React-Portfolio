@@ -23,7 +23,7 @@
 .ChatBody {
     position: fixed;
     right: 3%;
-    bottom: -80%;
+    bottom: -800px;
     width: 400px;
     height: 600px;
     background: white;
@@ -41,6 +41,6 @@
 }
 
 .active {
-    transform: translateY(-140%);
+    transform: translateY(-850px);
     opacity: 1;
 }
