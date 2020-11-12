@@ -34,10 +34,11 @@
 }
 
 .closeIcon {
-    font-size: 1rem;
+    font-size: 1.5rem;
     color: #f4f4f4;
     cursor: pointer;
     margin: 20px;
+    margin-right: 25px;
 }
 
 .active {
@@ -61,10 +62,11 @@
     }
     
     .closeIcon {
-        font-size: 1rem;
+        font-size: 1.5rem;
         color: #f4f4f4;
         cursor: pointer;
         margin: 20px;
+        margin-right: 25px;
     }
     
     .active {
