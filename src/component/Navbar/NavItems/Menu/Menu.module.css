@@ -61,16 +61,18 @@
        
         transition: transform 0.3s ease-in; 
         z-index: 9999;
+
     }
     
     .Menu.active{
         transform: translateX(-100%);
         transition: all 0.3s ease-in;
+
     }
     .Menu .itemsContainer{
         position: absolute;
         top: 45%;
-        transform: translateY(-50%);   
+        transform: translateY(-50%);  
     }
     
     .Menu ul{

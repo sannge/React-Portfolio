@@ -8,11 +8,15 @@
     margin-right: 4%;
     transition: font-size 0.1s ease-in;
     z-index: 10000;
-
 }
 
 .Toggler:hover{
     font-size: 45px;
+}
+
+.Toggler.active {
+    position: fixed;
+    right: 2%;
 }
 
 @media screen and (min-width: 781px){
