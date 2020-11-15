@@ -76,7 +76,7 @@ function Projects({state,text,setText,submitted,setSubmitted,paginateData: {offs
         // setDisplay(slice);
         // }
         return ()=> setDisplay(null)
-    }, [text]);
+    }, [text,state]);
     const onChange = (e) => {
         setText(e.target.value);
     }

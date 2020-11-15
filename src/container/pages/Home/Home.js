@@ -25,7 +25,7 @@ function Home() {
             </div>
              <div className={classes.Button}>
         
-                <a href={Resume} download="San Nge's Resume.pdf" target="_blank">
+                <a href={Resume} download="San Nge's Resume.pdf" rel="noopener noreferrer" target="_blank">
                     <Button>
                     <i className="fas fa-download" style={{marginRight:'3px'}}/>Resume
                     </Button>
@@ -33,13 +33,13 @@ function Home() {
 
              </div>
              <div className={classes.social}>
-                 <a href="https://www.facebook.com/sam.nge.507">
+                 <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sam.nge.507">
                      <i className='fab fa-facebook'></i>
                  </a>
-                 <a href="https://www.linkedin.com/in/san-nge-695b16180">
+                 <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/san-nge-695b16180">
                      <i className='fab fa-linkedin'></i>
                  </a>
-                 <a href="https://www.github.com/sannge">
+                 <a target="_blank" rel="noopener noreferrer" href="https://www.github.com/sannge">
                      <i className='fab fa-github'></i>
                  </a>
              </div>

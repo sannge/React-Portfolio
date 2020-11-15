@@ -1,0 +1,83 @@
+.topBar {
+    position: sticky;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 67px;
+    background: rgba(42, 127, 191,0.8);
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h3 {
+    margin-left: 10px;
+}
+
+.signInText {
+    display: flex;
+    color: #242424;
+    font-size: 1.3rem;
+    height: 10%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30%;
+}
+
+.signInDiv form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.signInDiv form input {
+    margin-top: 30px;
+    width: 80%;
+    height: 25px;
+    padding:7px;
+    border-radius: 10px;
+    border: 1px solid #242424;
+    outline: none;
+    box-shadow: 0 0 10px #aaa;
+}
+
+.invalid {
+    background-color: lightcoral;
+}
+
+.white {
+    background-color: white;
+}
+
+.signInDiv form input:focus {
+    box-shadow: 0 0 7px rgba(42, 127, 191);
+}
+
+.signInDiv form button {
+    width: 84%;
+    display: inline-block;
+    padding: 10px;
+    margin-top: 15px;
+    border-radius: 5px;
+    background:rgba(42, 127, 191);
+    color: #f4f4f4;
+    outline: none;
+    cursor: pointer;
+    transition: all .3s ease;
+}
+
+.signInDiv form button:hover { 
+    background:rgba(30, 100, 170); 
+    color: #ccc;
+}
+
+.signInDiv form p {
+    text-align: left;
+    color: #ff9966;
+    font-size: 12px;
+    margin-left: -50%;
+    margin-bottom: -2%;
+    margin-top: 1%;
+}
+
