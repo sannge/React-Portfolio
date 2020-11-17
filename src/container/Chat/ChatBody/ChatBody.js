@@ -1,11 +1,9 @@
 import React,{useState,useEffect,useRef} from 'react'
 import classes from './ChatBody.module.css'
-import {firestore} from '../../../Firebase/Firebase'
-import {useCollectionData} from 'react-firebase-hooks/firestore'
-import firebase,{auth} from '../../../Firebase/Firebase'
 import Loading from '../../../component/Loading/Loading'
 import moment from 'moment'
-function ChatBody({onClick,chatBodyClasses,iconClasses,signOutHandler,username}) {
+import {auth} from '../../../Firebase/Firebase'
+function ChatBody({onClick,chatBodyClasses,iconClasses,signOutHandler,username,messagesObject,loading,error,messagesRef}) {
     const [message, setMessage] = useState(''); 
     const [messages, setMessages] = useState([]);
     const [Shown,setShown] = useState(null);
@@ -13,29 +11,29 @@ function ChatBody({onClick,chatBodyClasses,iconClasses,signOutHandler,username})
     const messagesEndRef = useRef(null)
     const [count,setCount] = useState(0);
     const didMountRef = useRef(false);   
-       
-        const messagesRef = firestore.collection('chats');
-        
-    
 
-        let query = "";
-        if(auth.currentUser) {
-            query = messagesRef.where("uid","==",auth.currentUser.uid)  
-            }
-
-        const [messagesObject,loading,error] = useCollectionData(query,{idField:'id'});
         //when the user not opening the chat && messages come in
         //noti will clear when the user click on the chat button,
         //no noti when chatbody active
         useEffect(() => {
-            if(didMountRef.current) {
-                if(messagesObject && messagesObject[0] && messagesObject[0].texts && messages.length !== messagesObject[0].texts.length)
-            console.log("noti")
-            }else {
-                didMountRef.current = true;
+            //if san ==== true && chatbody not open, seen = false, when chatbody open,
+            //update all seen = true;
+            // if(didMountRef.current){
+            //     if(messagesObject) {
+            //         console.log("noti")
+            //     }
+            // }
+            // else {
+            //     didMountRef.current = true;
+            // }
+            if(count > 1){
+                if(messagesObject) {
+                    console.log("noti");
+                }
             }
-            
-            
+            else {
+                setCount(prevCount => prevCount+1)
+            }
         },[messagesObject])
 
        useEffect(() => {
@@ -46,13 +44,14 @@ function ChatBody({onClick,chatBodyClasses,iconClasses,signOutHandler,username})
                 createdAt: moment().format('MMMM Do YYYY, h:mm:ss a'),
                 time: new Date().getTime(),
                 san: true,
+                seen: false
             })
             await messagesRef.doc(auth.currentUser.uid).set({
                 texts: toSendMessages,
                 uid: auth.currentUser.uid
             })
            }
-           if(!loading && !error && auth.currentUser && messagesObject[0] === undefined) {
+           if(!loading && !error && auth.currentUser && messagesObject && messagesObject[0] === undefined) {
                //add doc to database
 
             add();
@@ -80,15 +79,15 @@ function ChatBody({onClick,chatBodyClasses,iconClasses,signOutHandler,username})
                 createdAt: moment().format('MMMM Do YYYY, h:mm:ss a'),
                 time: new Date().getTime(),
                 san: false,
+                seen: false
             })
             
             const {uid} = auth.currentUser;
+            setMessage('');
             await messagesRef.doc(auth.currentUser.uid).set({
                 texts: toSendMessages,
                 uid
             })
-    
-            setMessage('');
         }  
     }
 

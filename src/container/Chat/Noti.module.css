@@ -1,0 +1,12 @@
+.noti p{
+    background: red;
+    position: absolute;
+    right: 4%;
+    bottom: 60%;
+    border-radius: 50px;
+    min-width: 20px;
+    min-height: 20px;
+    text-align: center;
+    padding: 5px;
+   }
+   
