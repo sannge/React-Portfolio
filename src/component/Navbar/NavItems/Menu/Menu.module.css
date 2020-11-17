@@ -41,7 +41,7 @@
     border-bottom: 5px solid rgba(42, 127, 191);
 }
 
-@media screen and (max-width: 780px){
+@media screen and (max-width: 808px){
 
     .itemsContainer .active {
         padding-bottom: 0;

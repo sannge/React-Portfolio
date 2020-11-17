@@ -31,7 +31,6 @@ function Chat() {
 
     const signOutHandler = () => {
       localStorage.removeItem("username");
-      console.log(localStorage.getItem("username"))
       auth.signOut();
     }
     

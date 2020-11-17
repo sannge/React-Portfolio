@@ -54,7 +54,6 @@ function Projects({state,text,setText,submitted,setSubmitted,paginateData: {offs
                     pageCount={1}
                     marginPagesDisplayed={2}
                     pageRangeDisplayed={5}
-                    // onPageChange={handle}
                     containerClassName={classes.pagination}
                     subContainerClassName={[classes.pages,classes.pagination].join(' ')}
                     activeClassName={classes.active}

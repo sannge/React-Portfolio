@@ -92,7 +92,7 @@
     opacity: 0;
 }
 
-@media screen and (max-width: 780px) {
+@media screen and (max-width: 808px) {
     .ChatBody {
         position: fixed;
         right: -100%;

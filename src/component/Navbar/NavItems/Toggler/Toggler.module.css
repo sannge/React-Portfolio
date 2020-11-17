@@ -10,16 +10,12 @@
     z-index: 10000;
 }
 
-.Toggler:hover{
-    font-size: 45px;
-}
-
 .Toggler.active {
     position: fixed;
     right: 2%;
 }
 
-@media screen and (min-width: 781px){
+@media screen and (min-width: 809px){
    .Toggler{
        display: none;
    }

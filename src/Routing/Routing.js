@@ -1,7 +1,7 @@
 import React from 'react'
 import {Switch,Route} from 'react-router-dom'
 import Home from '../container/pages/Home/Home'
-import Experience from '../container/pages/Experience/Experience'
+import Experience from '../container/pages/Experience/ExperiencePage'
 import ProjectPage from '../container/pages/Projects/ProjectPage'
 import Contact from '../container/pages/Contact/Contact'
 function Routing() {

@@ -75,7 +75,7 @@
     padding-right: 5px;
 }
 
-@media screen and (max-width: 780px) {
+@media screen and (max-width: 808px) {
     .Project {
         display: flex;
         flex-direction: column;

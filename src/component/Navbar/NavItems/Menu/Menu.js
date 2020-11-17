@@ -31,7 +31,7 @@ function Menu(props) {
                 <li>
                    <NavLink exact onClick={props.clickHandler} activeClassName={classes.active} className={classes.link}to='/contact'>
                    <i className={'fas fa-address-book'}></i>
-                       Contact
+                       Contact Info
                        </NavLink> 
                 </li>
             </ul>

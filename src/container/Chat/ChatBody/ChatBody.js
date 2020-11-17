@@ -11,13 +11,11 @@ function ChatBody({onClick,chatBodyClasses,iconClasses,signOutHandler,username})
     const [Shown,setShown] = useState(null);
     const [hour] = useState(Math.floor(Math.random()*11));
     const messagesEndRef = useRef(null)
-    
-       
+    const [count,setCount] = useState(0);
+    const didMountRef = useRef(false);   
        
         const messagesRef = firestore.collection('chats');
-        useEffect(()=> {
-            
-        })
+        
     
 
         let query = "";
@@ -26,6 +24,19 @@ function ChatBody({onClick,chatBodyClasses,iconClasses,signOutHandler,username})
             }
 
         const [messagesObject,loading,error] = useCollectionData(query,{idField:'id'});
+        //when the user not opening the chat && messages come in
+        //noti will clear when the user click on the chat button,
+        //no noti when chatbody active
+        useEffect(() => {
+            if(didMountRef.current) {
+                if(messagesObject && messagesObject[0] && messagesObject[0].texts && messages.length !== messagesObject[0].texts.length)
+            console.log("noti")
+            }else {
+                didMountRef.current = true;
+            }
+            
+            
+        },[messagesObject])
 
        useEffect(() => {
            async function add() {
