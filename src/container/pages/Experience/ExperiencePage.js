@@ -13,7 +13,7 @@ function ExperiencePage() {
             to: "Present",
             location: 'Remote',
             image: BitbrokerLabs,
-            desc: ['Develop tools and websites that help startups to build better products minimum amount of effort and time','Implement and Engineer both Frontend features, Backend Servers, and APIs using ReactJS, GraphQl, MongoDb, Express and more.','Currently worked on Checkout Pages and Payment, Ad-Attribution, Multi-language Support, and Profile Dashboard Systems']
+            desc: ['Develop tools and websites that help startups to build better products minimum amount of effort and time','Implement and Engineer both Frontend features, Backend Servers, and APIs using ReactJS, GraphQl, MongoDb, Express and more.','Currently worked on Checkout Pages and Payment, Square and Stripe Integrations with OAuth, Ad-Attribution, Multi-language Support, and Profile Dashboard Systems']
         },{
             at: 'Pacific Lutheran University',
             title: 'Undergraduate Researcher(Protein Structure Prediction with AI)',
