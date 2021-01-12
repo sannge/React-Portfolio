@@ -8,7 +8,7 @@ function ExperiencePage() {
     const [state] = useState([
         {
             at: 'Bitbroker Labs',
-            title: 'Full-Stack Engineer Intern',
+            title: 'Full-Stack Engineer',
             from: new Date("2020/10/01"),
             to: "Present",
             location: 'Remote',
