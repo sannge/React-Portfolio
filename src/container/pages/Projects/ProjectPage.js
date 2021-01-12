@@ -53,6 +53,7 @@ function ProjectPage() {
 				"Node.js",
 				"Heroku",
 				"GLocationService",
+				"TailwindCSS",
 			],
 			desc: [
 				"MERN stack Athelete Profile Bank",
@@ -64,7 +65,15 @@ function ProjectPage() {
 		{
 			image: Refmonkey,
 			header: "RefMonkey SAAS Web Application (Co-Developer)",
-			tags: ["ReactJS", "GraphQL", "HTML5", "CSS3", "MongoDB", "ExpressJS"],
+			tags: [
+				"ReactJS",
+				"GraphQL",
+				"HTML5",
+				"CSS3",
+				"MongoDB",
+				"ExpressJS",
+				"TailwindCSS",
+			],
 			desc: [
 				"Referral Web Application/Business for Online Stores and Businesses",
 				"Built features; edit profile settings, multiple langauge feature, Ad-Attribution System, and more ... ",
