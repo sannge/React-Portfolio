@@ -10,12 +10,11 @@ function Aboutme() {
                 </div> */}
 				<div className={classes.AboutmeMain}>
 					<p>
-						I am a proactive student (BS in Computer Science) currently
-						attending Pacific Lutheran University graduating in December 2020. I
-						spend most of my time learning new topics on web development and
-						building projects with them. I am comfortable building MERN stack
-						web applications and familiar building chat applications, e-commerce
-						websites, and more. My hobbies are Coding, Hiking, and Cooking.
+						I am a Proactive Full Stack Developer currently
+						working for Bitbroker Labs.  I
+						spend most of my free time learning new topics on web and mobile development and
+						building projects with them. I am comfortable building MERNG Stack and PERNG Stack applications and familiar building Social Media Applications, e-commerce
+						Websites, Affiliate Tracking Platforms, and more. My hobbies are Coding, Hiking, and Cooking. I am also open to work currently, either in-person or remote, and willing to relocate anywhere in the US.
 					</p>
 				</div>
 			</div>

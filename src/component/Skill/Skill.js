@@ -1,5 +1,16 @@
 import React from 'react'
 import classes from './Skill.module.css'
+import GraphqlIcon from '../../assets/svg/graphql.svg';
+import Express from '../../assets/svg/express.svg';
+import Node from '../../assets/svg/node.svg';
+import Git from '../../assets/svg/github-tile.svg';
+import Mongo from '../../assets/svg/mongodb-icon.svg';
+import Postgres from '../../assets/svg/postgresql-icon.svg';
+import Tailwind from '../../assets/svg/tailwindcss-icon.svg';
+import MaterialUI from '../../assets/svg/materialui-icon.png';
+import GoogleCloud from '../../assets/svg/google_cloud-icon.svg';
+import AWS from '../../assets/svg/amazon_aws-icon.svg';
+
 const skills = [
     {
         name: 'Java',
@@ -13,7 +24,7 @@ const skills = [
     },
     {
         name: 'Javascript',
-        percent: '75%',
+        percent: '95%',
         class: 'fab fa-node-js'
     },
     {
@@ -23,13 +34,8 @@ const skills = [
     },
     {
         name: 'CSS3',
-        percent: '75%',
-        class: 'fab fa-css3-alt'
-    },
-    {
-        name: 'Databases',
         percent: '80%',
-        class: 'fas fa-database'
+        class: 'fab fa-css3-alt'
     },
     {
         name: 'ReactJS',
@@ -37,9 +43,54 @@ const skills = [
         class: 'fab fa-react'
     },
     {
-        name: 'Swift',
-        percent: '45%',
-        class: 'fab fa-swift'
+        name: 'GraphQL',
+        percent: '97%',
+        svg: GraphqlIcon
+    },
+    {
+        name: 'ExpressJS',
+        percent: '95%',
+        svg: Express
+    },
+    {
+        name: 'NodeJS',
+        percent: '95%',
+        svg: Node
+    },
+    {
+        name: 'Git',
+        percent: '99%',
+        svg: Git
+    },
+    {
+        name: 'MongoDB',
+        percent: '90%',
+        svg: Mongo
+    },
+    {
+        name: 'PostgresSQL',
+        percent: '96%',
+        svg: Postgres
+    },
+    {
+        name: 'TailwindCSS',
+        percent: '89%',
+        svg: Tailwind
+    },
+    {
+        name: 'MaterialUI',
+        percent: '80%',
+        svg: MaterialUI
+    },
+    {
+        name: 'Google Cloud Platform',
+        percent: '80%',
+        svg: GoogleCloud
+    },
+    {
+        name: 'AWS',
+        percent: '68%',
+        svg: AWS
     }
     
 
@@ -52,6 +103,9 @@ function Skill() {
                <div key={index} className={classes.skillData}>
                 <div className={classes.skillNames}>
                     <i className={[skill.class,classes.skillIcon].join(' ')}></i>
+                    {skill.svg && (
+                        <img style={{width: '30px', marginLeft: '-12px', marginRight: '6px'}} src={skill.svg} alt=""/>
+                    )}
                     <span className={classes.skillName}>{skill.name}</span>
                 </div>
                 <div>
