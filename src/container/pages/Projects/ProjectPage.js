@@ -7,6 +7,7 @@ import Connect6Project from "../../../assets/project-images/connect6Project.png"
 import xResearchProject from "../../../assets/project-images/xResearchProject.png";
 import MERNForm from "../../../assets/project-images/MERNMultiStepForm.png";
 import Socix from "../../../assets/project-images/SocixProject.png";
+import SlackClone from "../../../assets/project-images/SlackClone.png";
 
 import Refmonkey from "../../../assets/project-images/Refmonkey.png";
 function ProjectPage() {
@@ -36,11 +37,31 @@ function ProjectPage() {
 				"MaterialUI",
 			],
 			desc: [
-				"A Single Page MERNG stack Social Media Application with real time data transfer",
+				"A Single Page PERNG stack Social Media Application with real time data transfer",
 				"Implemented using latest technologies such as GraphQL Subscriptions, WebRTC to be able to receive and update live information",
 				"Secure Authentication",
 			],
 			source: "https://github.com/sannge/Socix-for-Social",
+		},
+		{
+			image: SlackClone,
+			header: "Full Stack Slack Clone Application",
+			tags: [
+				"ReactJS",
+				"InMemoryCache",
+				"PostgresSQL",
+				"Sequelize",
+				"GraphQL",
+				"GraphQLSubscription",
+				"Express",
+				"Node.js",
+				"SemanticUI",
+			],
+			desc: [
+				"Full Stack Slack Replica using PERNG stack, deployed with docker and docker compose on. Deployed the frontend on AWS S3 with cloudfront, and backend on EC2 with docker-compose",
+				"Hosted files(images/videos) on AWS S3 bucket and used aws-sdk to handle file uploads.",
+			],
+			source: "http://slack-clone-client.s3-website-us-west-2.amazonaws.com/",
 		},
 		{
 			image: MERNForm,
