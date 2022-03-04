@@ -32,7 +32,7 @@ function Footer() {
 					<i className='fab fa-github'></i>
 				</a>
 			</div>
-			<small>&copy; 2021 Copyright</small>
+			<small>&copy; 2022 Copyright</small>
 		</div>
 	);
 }

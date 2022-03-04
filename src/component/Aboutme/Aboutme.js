@@ -13,7 +13,7 @@ function Aboutme() {
 						I am a Proactive Full Stack Developer currently working for
 						Bitbroker Labs. I spend most of my free time learning new topics on
 						web and mobile development and building projects with them. I am
-						comfortable building MERNG Stack and PERNG Stack applications and
+						comfortable building MERNG/PERNG Stack/ASP.NET Core applications and
 						familiar building Social Media Applications, e-commerce Websites,
 						Affiliate Tracking Platforms, and more. My hobbies are Coding,
 						Hiking, and Cooking. I am also open to work currently, either

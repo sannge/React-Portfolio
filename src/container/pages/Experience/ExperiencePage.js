@@ -2,15 +2,27 @@ import React,{useState} from 'react'
 import Experiences from '../../../component/Experiences/Experiences'
 import classes from './ExperiencePage.module.css'
 import BitbrokerLabs from '../../../assets/BitbrokerLabsProfile.png'
+import Foxconn from '../../../assets/foxconn.png'
 import GreenRiverImage from '../../../assets/GreenRiverImage.png'
 import PLUImage from '../../../assets/PLUImage.jpeg'
 function ExperiencePage() {
     const [state] = useState([
         {
+            at: 'Foxconn Assembly LLC',
+            title: 'Software Engineer',
+            from: new Date("2021/03/29"),
+            to: "Present",
+            location: 'Houston, TX',
+            image: Foxconn,
+            desc: ['Developed and maintained Desktop and Full Stack Web applications/APIs built by C Sharp, ASP.NET CORE/Node,SQL'
+                ,'Improved internal software systems/Robot communications for faster and user friendliness.',
+            'Worked on developing complex Label Templates and Label printing from Softwares.' ]
+        },
+        {
             at: 'Bitbroker Labs',
             title: 'Full-Stack Engineer',
             from: new Date("2020/10/01"),
-            to: "Present",
+            to: new Date("2021/03/29"),
             location: 'Remote',
             image: BitbrokerLabs,
             desc: ['Develop tools and websites that help startups to build better products minimum amount of effort and time','Implement and Engineer both Frontend features, Backend Servers, and APIs using ReactJS, GraphQl, MongoDb, Express and more.','Currently worked on Checkout Pages and Payment, Square and Stripe Integrations with OAuth, Ad-Attribution, Multi-language Support, and Profile Dashboard Systems']

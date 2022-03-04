@@ -10,22 +10,36 @@ import Tailwind from '../../assets/svg/tailwindcss-icon.svg';
 import MaterialUI from '../../assets/svg/materialui-icon.png';
 import GoogleCloud from '../../assets/svg/google_cloud-icon.svg';
 import AWS from '../../assets/svg/amazon_aws-icon.svg';
+import Microservices from '../../assets/svg/microservices.jpeg';
+import CSharp from '../../assets/svg/c#.png';
+import Typescript from '../../assets/svg/typescript.png';
+import Sqlserver from '../../assets/svg/sqlserver.png';
 
 const skills = [
     {
-        name: 'Java',
-        percent: '97%',
-        class: 'fab fa-java'
+        name: 'Microservices with Event Bus',
+        percent: '88%',
+        svg: Microservices
     },
     {
-        name: 'Python3',
-        percent: '90%',
-        class: 'fab fa-python'
+        name: 'Docker/Kubernetes',
+        percent: '95%',
+        class: 'fab fa-docker'
     },
     {
         name: 'Javascript',
         percent: '95%',
         class: 'fab fa-node-js'
+    },
+    {
+        name: 'C#/ASP.NET Core',
+        percent: '95%',
+        svg: CSharp
+    },
+    {
+        name: 'Typescript',
+        percent: '80%',
+        svg: Typescript
     },
     {
         name: 'HTML5',
@@ -68,9 +82,9 @@ const skills = [
         svg: Mongo
     },
     {
-        name: 'PostgresSQL',
-        percent: '96%',
-        svg: Postgres
+        name: 'SQL Server',
+        percent: '100%',
+        svg: Sqlserver
     },
     {
         name: 'TailwindCSS',
