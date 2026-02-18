@@ -43,7 +43,12 @@
     height: .25rem;
     border-radius: .5rem;
     z-index: -1;
+    width: 0%;
+    transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
 
+.skillBarsAnimated{
+    box-shadow: 0 0 6px rgba(42, 127, 191, 0.4);
 }
 
 

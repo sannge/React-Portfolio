@@ -11,7 +11,7 @@
     align-items: center;
 }
 
-h3 {
+.topBar h3 {
     margin-left: 10px;
 }
 
@@ -79,5 +79,17 @@ h3 {
     margin-left: -50%;
     margin-bottom: -2%;
     margin-top: 1%;
+}
+
+.description {
+    text-align: center;
+    color: #777;
+    font-size: 13px;
+    padding: 0 25px;
+    margin-top: -10px;
+}
+
+.description p {
+    line-height: 1.5;
 }
 

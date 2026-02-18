@@ -23,7 +23,7 @@
 
 .activeWhen i {
     color: #ccc;
-    font-size: 7çpx;
+    font-size: 7px;
 }
 
 .topBar h4  {
@@ -43,10 +43,8 @@
 }
 
 .activeWhen i.greenCircle {
-    
     color: lightgreen;
 }
-
 
 .showcase {
     min-width: 100%;
@@ -59,10 +57,9 @@
 }
 
 .block {
-    display: block;
     display: flex;
     justify-content: flex-end;
-    margin-top: -20px;
+    margin-top: 8px;
     align-items: center;
 }
 
@@ -75,7 +72,7 @@
     padding: 7px;
     margin-right: 10px;
     border-radius: 10px 10px 0 12px;
-    word-wrap: break-word;  
+    word-wrap: break-word;
     transition: all .3s ease-in-out;
 }
 
@@ -96,27 +93,11 @@
 .errorMessageContainer {
     width: 80%;
     height: 20%;
-    /* background: rgba(255,100,100,0.7); */
     display:flex;
     justify-content: center;
     border-radius: 30px;
     border: none;
     align-items: center;
-}
-
-.textDeleteButton {
-    display:inline-block;
-    font-size: 10px;
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    background: transparent;
-    outline: none;
-    transition: all .3s ease-in-out;
-
 }
 
 .time {
@@ -126,37 +107,248 @@
     padding: 5px;
 }
 
-.textDeleteButton:hover {
-    color: #f4f4f4;
-    background: red;
-    
-}
-
 .blockOther {
-    display: block;
     display: flex;
     justify-content: flex-start;
-    margin-top: -20px;
+    margin-top: 8px;
+    align-items: flex-start;
 }
 
 .eachMessageOther {
-    max-width: 65%;
+    max-width: 75%;
     display: inline-block;
     color: #242424;
-    background:  #ccc;
+    background: #e8e8e8;
     font-size: 13px;
-    padding: 7px;
+    padding: 7px 10px;
     margin-right: 10px;
     border-radius: 10px 10px 12px 0;
-    word-wrap: break-word;  
+    word-wrap: break-word;
+    line-height: 1.5;
+    overflow-x: auto;
 }
 
+/* Markdown inside bot messages */
+.eachMessageOther p {
+    margin: 4px 0;
+}
 
-.typeArea { 
+.eachMessageOther p:first-child {
+    margin-top: 0;
+}
+
+.eachMessageOther p:last-child {
+    margin-bottom: 0;
+}
+
+.eachMessageOther h1,
+.eachMessageOther h2,
+.eachMessageOther h3,
+.eachMessageOther h4 {
+    margin: 8px 0 4px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.eachMessageOther ul,
+.eachMessageOther ol {
+    margin: 4px 0;
+    padding-left: 18px;
+}
+
+.eachMessageOther li {
+    margin: 2px 0;
+}
+
+.eachMessageOther a {
+    color: rgba(42, 127, 191);
+    text-decoration: underline;
+}
+
+.eachMessageOther a:hover {
+    color: rgba(30, 100, 170);
+}
+
+.eachMessageOther code {
+    background: #d5d5d5;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-family: 'Courier New', monospace;
+}
+
+.eachMessageOther pre {
+    background: #2d2d2d;
+    color: #f4f4f4;
+    padding: 8px;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin: 6px 0;
+    font-size: 12px;
+}
+
+.eachMessageOther pre code {
+    background: none;
+    padding: 0;
+    color: inherit;
+}
+
+.eachMessageOther strong {
+    font-weight: 700;
+}
+
+.eachMessageOther blockquote {
+    border-left: 3px solid rgba(42, 127, 191);
+    margin: 6px 0;
+    padding: 2px 8px;
+    color: #555;
+}
+
+.eachMessageOther hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 8px 0;
+}
+
+/* Table styles */
+.tableWrap {
+    overflow-x: auto;
+    margin: 6px 0;
+}
+
+.eachMessageOther table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 12px;
+}
+
+.eachMessageOther th,
+.eachMessageOther td {
+    border: 1px solid #ccc;
+    padding: 4px 8px;
+    text-align: left;
+}
+
+.eachMessageOther th {
+    background: rgba(42, 127, 191, 0.15);
+    font-weight: 700;
+}
+
+.eachMessageOther tr:nth-child(even) {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+/* Tool call indicators */
+.toolCallsWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 6px;
+}
+
+.toolCall {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: #666;
+    background: rgba(42, 127, 191, 0.08);
+    border: 1px solid rgba(42, 127, 191, 0.2);
+    border-radius: 6px;
+    padding: 3px 8px;
+    width: fit-content;
+}
+
+.toolCall i {
+    font-size: 10px;
+    color: rgba(42, 127, 191);
+}
+
+.toolCallDone {
+    color: #444;
+    background: rgba(42, 127, 191, 0.05);
+    border-color: rgba(42, 127, 191, 0.15);
+}
+
+.toolCheck {
+    font-size: 9px !important;
+    color: #4caf50 !important;
+}
+
+/* Bot avatar label */
+.botLabel {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    border-radius: 50%;
+    background: rgba(42, 127, 191);
+    color: #fff;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    margin-right: 6px;
+    margin-top: 12px;
+}
+
+/* Typing indicator dots */
+.typingIndicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 2px 4px;
+}
+
+.dot {
+    width: 6px;
+    height: 6px;
+    background: #888;
+    border-radius: 50%;
+    animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.dot:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.dot:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+.dot:nth-child(3) {
+    animation-delay: 0s;
+}
+
+@keyframes bounce {
+    0%, 80%, 100% {
+        transform: scale(0);
+    }
+    40% {
+        transform: scale(1);
+    }
+}
+
+/* Streaming cursor */
+.cursor {
+    animation: blink 0.8s infinite;
+    color: rgba(42, 127, 191);
+    font-weight: bold;
+}
+
+@keyframes blink {
+    0%, 50% {
+        opacity: 1;
+    }
+    51%, 100% {
+        opacity: 0;
+    }
+}
+
+.typeArea {
     display: flex;
 }
-
-
 
 .typeArea input{
     border: 1px solid rgba(42, 127, 191);
@@ -169,16 +361,28 @@
     outline: none;
 }
 
+.typeArea input:disabled {
+    background: #f5f5f5;
+    color: #999;
+}
+
 .button {
     width: 50px;
     height: 40px;
     color: #f4f4f4;
     background: rgba(42, 127, 191);
     outline: none;
+    border: none;
     border-radius: 0 0 10px 10px;
+    cursor: pointer;
 }
 
-.extraArea { 
+.button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.extraArea {
     text-align: center;
     color: #bbb;
     font-size: 12px;

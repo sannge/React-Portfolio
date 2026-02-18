@@ -1,0 +1,78 @@
+# React-to-Next.js Migration Fix Plan
+## Current State: Partially migrated, app is broken
+
+---
+
+## Root Cause Analysis
+
+### Critical Issues (App Breaking):
+
+1. **Image imports broken** — `Home.js`, `ExperiencePage.js`, `ProjectPage.js`, `Skill.js` all
+   use `import img from '../../assets/foo.jpg'` then `<img src={img}/>`. In Next.js, static
+   image imports return `{src, height, width}` objects, NOT strings. This causes `[object Object]`
+   in the rendered HTML.
+
+2. **SVG imports broken** — `Skill.js` imports 14+ SVG files like `import X from '../../assets/svg/x.svg'`.
+   Next.js does NOT handle SVG imports by default (no built-in loader).
+
+3. **`vercel.json` misconfigured** — References `api/chat.py` but file is `api/index.py`. Uses
+   `@vercel/static-build` with `distDir: "build"` (CRA pattern) instead of letting Vercel
+   auto-detect Next.js. Uses outdated `builds`/`routes` format.
+
+4. **`.gitignore` missing `.next/`** — Next.js build cache directory not ignored.
+
+### Non-Breaking Issues:
+5. Old CRA artifacts still exist (`build/`, old `public/index.html`, etc.) — clutter but won't break.
+
+---
+
+## Fix Strategy
+
+### Task 1: Fix `vercel.json` for Next.js + Python
+Replace the broken config. Vercel auto-detects Next.js — we only need to tell it about the Python API:
+```json
+{
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/index.py" }
+  ]
+}
+```
+
+### Task 2: Fix `next.config.js` — Add image & SVG webpack support
+Add webpack configuration to handle SVG imports (as URL strings) so existing `<img src={svg}>` patterns work:
+```js
+const nextConfig = {
+  reactStrictMode: false,
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      type: 'asset/resource',
+    })
+    return config
+  },
+}
+```
+
+### Task 3: Fix all image `src` references across components
+In Next.js, `import img from './file.jpg'` returns `{src, width, height}`. Fix every `<img src={importedImage}>` to `<img src={importedImage.src}>`.
+
+Files to fix:
+- `src/container/pages/Home/Home.js` — profileImage
+- `src/container/pages/Experience/ExperiencePage.js` — 4 company logos (BitbrokerLabs, Foxconn, GreenRiver, PLU)
+- `src/container/pages/Projects/ProjectPage.js` — 8 project images
+- `src/component/Skill/Skill.js` — 14 SVG/PNG skill icons (these use webpack asset/resource so they'll be strings, BUT the PNGs like c#.png, typescript.png, sqlserver.png, materialui-icon.png, microservices.jpeg are imported as Next.js static images and need `.src`)
+- `src/component/Experiences/Experience/Experience.js` — likely uses image prop
+
+### Task 4: Update `.gitignore`
+Add `.next/` to gitignore.
+
+### Task 5: Test build & fix any remaining issues
+Run `next build` and `next dev` to verify everything works.
+
+---
+
+## Execution Plan (Parallel Agent Team)
+
+- **Agent A: Config Fixer** — Tasks 1, 2, 4 (vercel.json, next.config.js, .gitignore)
+- **Agent B: Image Fixer** — Task 3 (fix all img src references across all components)
+- **Agent C: Build Tester** — Task 5 (run after A & B finish, fix remaining build errors)

@@ -66,12 +66,6 @@
     color: #242424;
 }
 
-.question p span {
-    color: rgba(42, 127, 191);
-    font-weight: bold;
-    font-size: 1.2rem;
-}
-
 
 
 @media screen and (max-width: 808px) {

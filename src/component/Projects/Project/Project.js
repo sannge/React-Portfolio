@@ -5,7 +5,7 @@ function Project(props) {
     return (
         <div className={classes.Project}>
           <div className={classes.ProjectImage}>
-              <img src={props.project.image} alt=""/>
+              <img src={props.project.image.src} alt=""/>
           </div>
           <div className={classes.ProjectDesc}>
               

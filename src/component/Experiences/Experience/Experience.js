@@ -65,7 +65,7 @@ function Experience({ exp: { at, title, from, to, location, desc, image } }) {
 		<div className={classes.Experience}>
 			<div className={classes.innerContainer}>
 				<div className={classes.imageDiv}>
-					<img src={image} alt='' />
+					<img src={image.src} alt='' />
 				</div>
 				<div className={classes.bodyDiv}>
 					<h3>{at}</h3>

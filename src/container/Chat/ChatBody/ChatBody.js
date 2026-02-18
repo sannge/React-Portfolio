@@ -1,171 +1,352 @@
-import React,{useState,useEffect,useRef} from 'react'
+import React,{useState,useEffect,useRef,useCallback} from 'react'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 import classes from './ChatBody.module.css'
-import Loading from '../../../component/Loading/Loading'
-import moment from 'moment'
-import {auth} from '../../../Firebase/Firebase'
-function ChatBody({onClick,chatBodyClasses,iconClasses,signOutHandler,username,messagesObject,loading,error,messagesRef}) {
-    const [message, setMessage] = useState(''); 
-    const [messages, setMessages] = useState([]);
-    const [Shown,setShown] = useState(null);
-    const [hour] = useState(Math.floor(Math.random()*11));
-    const messagesEndRef = useRef(null)
-    const [count,setCount] = useState(0);
-    const didMountRef = useRef(false);   
+import {auth, firestore} from '../../../Firebase/Firebase'
+import firebase from 'firebase/app'
 
-        //when the user not opening the chat && messages come in
-        //noti will clear when the user click on the chat button,
-        //no noti when chatbody active
-        useEffect(() => {
-            //if san ==== true && chatbody not open, seen = false, when chatbody open,
-            //update all seen = true;
-            // if(didMountRef.current){
-            //     if(messagesObject) {
-            //         console.log("noti")
-            //     }
-            // }
-            // else {
-            //     didMountRef.current = true;
-            // }
-            if(count > 1){
-                if(messagesObject) {
-                    console.log("noti");
+const WELCOME_MESSAGE = { role: 'assistant', content: "Hi! I'm San's AI Agent. Ask me anything about his experience, skills, or projects!" };
+const MAX_STORED_MESSAGES = 50;
+
+const TOOL_ICONS = {
+    save_memory: 'fas fa-brain',
+    get_memories: 'fas fa-book-open',
+    web_search: 'fas fa-search',
+};
+
+const TOOL_LABELS = {
+    save_memory: 'Saving to memory',
+    get_memories: 'Retrieving memories',
+    web_search: 'Searching the web',
+};
+
+function ChatBody({onClick,chatBodyClasses,iconClasses,signOutHandler,username}) {
+    const [message, setMessage] = useState('');
+    const [messages, setMessages] = useState([WELCOME_MESSAGE]);
+    const [isStreaming, setIsStreaming] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const messagesEndRef = useRef(null);
+    const abortControllerRef = useRef(null);
+    const inputRef = useRef(null);
+
+    const scrollToBottom = useCallback(() => {
+        if(messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({behavior: "smooth"})
+        }
+    }, []);
+
+    useEffect(scrollToBottom, [messages, scrollToBottom]);
+
+    // Focus input on mount (chat opened) and when streaming finishes
+    useEffect(() => {
+        if(!isStreaming && inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, [isStreaming]);
+
+    // Cleanup abort controller on unmount
+    useEffect(() => {
+        return () => {
+            if(abortControllerRef.current) {
+                abortControllerRef.current.abort();
+            }
+        };
+    }, []);
+
+    // Load chat history from Firestore on mount
+    useEffect(() => {
+        const uid = auth.currentUser?.uid;
+        if(!uid) {
+            setIsLoading(false);
+            return;
+        }
+        firestore.collection('chats').doc(uid).get()
+            .then(doc => {
+                if(doc.exists && doc.data().messages?.length > 0) {
+                    setMessages(doc.data().messages);
                 }
-            }
-            else {
-                setCount(prevCount => prevCount+1)
-            }
-        },[messagesObject])
-
-       useEffect(() => {
-           async function add() {
-            let toSendMessages = []
-            toSendMessages.push({
-                text: "Hello, Welcome to my Chat!",
-                createdAt: moment().format('MMMM Do YYYY, h:mm:ss a'),
-                time: new Date().getTime(),
-                san: true,
-                seen: false
             })
-            await messagesRef.doc(auth.currentUser.uid).set({
-                texts: toSendMessages,
-                uid: auth.currentUser.uid
-            })
-           }
-           if(!loading && !error && auth.currentUser && messagesObject && messagesObject[0] === undefined) {
-               //add doc to database
+            .catch(() => {})
+            .finally(() => setIsLoading(false));
+    }, []);
 
-            add();
-           }
-           if(messagesObject && messagesObject[0] !== undefined && messagesObject[0].texts) {
-               setMessages(messagesObject[0].texts);
-           }
-       },[messagesObject])
-        
-       
-    const scrollToBottom = () => {
-        messagesEndRef.current.scrollIntoView({behavior: "smooth"})
-    }
-
-    useEffect(scrollToBottom,[messages])
-    
-    
+    // Save messages to Firestore (strip toolCalls, only persist role+content)
+    const saveMessages = useCallback((msgs) => {
+        const uid = auth.currentUser?.uid;
+        if(!uid) return;
+        const toStore = msgs.slice(-MAX_STORED_MESSAGES).map(m => ({
+            role: m.role,
+            content: m.content,
+        }));
+        firestore.collection('chats').doc(uid).set({
+            messages: toStore,
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+        }).catch(() => {});
+    }, []);
 
     const sendMessageHandler = async (e) => {
         e.preventDefault();
-        if(message.trim()) {
-            let toSendMessages = [...messagesObject[0].texts]
-            toSendMessages.push({
-                text: message,
-                createdAt: moment().format('MMMM Do YYYY, h:mm:ss a'),
-                time: new Date().getTime(),
-                san: false,
-                seen: false
-            })
-            
-            const {uid} = auth.currentUser;
-            setMessage('');
-            await messagesRef.doc(auth.currentUser.uid).set({
-                texts: toSendMessages,
-                uid
-            })
-        }  
-    }
+        const trimmed = message.trim();
+        if(!trimmed || isStreaming) return;
 
-    const deleteMessageHandler = async (m) => {
-        let messagesList = [...messages];
-        let toDeleteMessageIndex=-1;
-        for(var i=0;i<messagesList.length;i++) {
-            if(messagesList[i].text == m.text && messagesList[i].createdAt == m.createdAt && messagesList[i].san == m.san) {
-                toDeleteMessageIndex = i;
-                
-            }
+        const userMessage = { role: 'user', content: trimmed };
+        const updatedMessages = [...messages, userMessage];
+        setMessages(updatedMessages);
+        setMessage('');
+        setIsStreaming(true);
+
+        // Add placeholder for AI response
+        setMessages(prev => [...prev, { role: 'assistant', content: '', toolCalls: [] }]);
+
+        // Abort any existing request
+        if(abortControllerRef.current) {
+            abortControllerRef.current.abort();
         }
-        messagesList.splice(toDeleteMessageIndex,1);
-        await messagesRef.doc(auth.currentUser.uid).set({
-            texts: messagesList,
-            uid: auth.currentUser.uid
-        })
+        abortControllerRef.current = new AbortController();
 
+        try {
+            const apiBase = process.env.NEXT_PUBLIC_API_URL || '';
+            const response = await fetch(`${apiBase}/api/chat`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    messages: updatedMessages.map(m => ({ role: m.role, content: m.content })),
+                    userId: auth.currentUser ? auth.currentUser.uid : 'anonymous',
+                    userEmail: auth.currentUser?.email || '',
+                    visitorName: username || 'Visitor',
+                }),
+                signal: abortControllerRef.current.signal,
+            });
 
-        
+            if(response.status === 429) {
+                const errorData = await response.json();
+                setMessages(prev => {
+                    const updated = [...prev];
+                    updated[updated.length - 1] = {
+                        role: 'assistant',
+                        content: errorData.error || "You've reached the message limit. Please try again later!"
+                    };
+                    return updated;
+                });
+                setIsStreaming(false);
+                return;
+            }
+
+            if(!response.ok) {
+                throw new Error('Request failed');
+            }
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+            let buffer = '';
+
+            while(true) {
+                const { done, value } = await reader.read();
+                if(done) break;
+
+                buffer += decoder.decode(value, { stream: true });
+                const lines = buffer.split('\n');
+                buffer = lines.pop() || '';
+
+                for(const line of lines) {
+                    if(line.startsWith('data: ')) {
+                        try {
+                            const data = JSON.parse(line.slice(6));
+
+                            if(data.error) {
+                                setMessages(prev => {
+                                    const updated = [...prev];
+                                    updated[updated.length - 1] = {
+                                        role: 'assistant',
+                                        content: data.error
+                                    };
+                                    return updated;
+                                });
+                                setIsStreaming(false);
+                                return;
+                            }
+
+                            if(data.done) {
+                                setMessages(prev => {
+                                    saveMessages(prev);
+                                    return prev;
+                                });
+                                setIsStreaming(false);
+                                return;
+                            }
+
+                            if(data.token) {
+                                setMessages(prev => {
+                                    const updated = [...prev];
+                                    const last = updated[updated.length - 1];
+                                    updated[updated.length - 1] = {
+                                        ...last,
+                                        content: last.content + data.token
+                                    };
+                                    return updated;
+                                });
+                            }
+
+                            if(data.tool_call) {
+                                setMessages(prev => {
+                                    const updated = [...prev];
+                                    const last = updated[updated.length - 1];
+                                    updated[updated.length - 1] = {
+                                        ...last,
+                                        toolCalls: [...(last.toolCalls || []), {
+                                            name: data.tool_call.name,
+                                            display: data.tool_call.display,
+                                            status: 'calling',
+                                        }]
+                                    };
+                                    return updated;
+                                });
+                            }
+
+                            if(data.tool_result) {
+                                setMessages(prev => {
+                                    const updated = [...prev];
+                                    const last = updated[updated.length - 1];
+                                    const toolCalls = [...(last.toolCalls || [])];
+                                    if(toolCalls.length > 0) {
+                                        const lastTc = toolCalls[toolCalls.length - 1];
+                                        toolCalls[toolCalls.length - 1] = {
+                                            ...lastTc,
+                                            status: 'done',
+                                            output: data.tool_result.output,
+                                        };
+                                    }
+                                    updated[updated.length - 1] = { ...last, toolCalls };
+                                    return updated;
+                                });
+                            }
+                        } catch(parseErr) {
+                            // Skip malformed SSE data
+                        }
+                    }
+                }
+            }
+            setIsStreaming(false);
+        } catch(err) {
+            if(err.name !== 'AbortError') {
+                setMessages(prev => {
+                    const updated = [...prev];
+                    updated[updated.length - 1] = {
+                        role: 'assistant',
+                        content: "I'm temporarily unavailable. Please try again in a moment!"
+                    };
+                    return updated;
+                });
+            }
+            setIsStreaming(false);
+        }
     }
+
+    const renderToolCalls = (toolCalls) => {
+        if(!toolCalls || toolCalls.length === 0) return null;
+        return (
+            <div className={classes.toolCallsWrap}>
+                {toolCalls.map((tc, i) => (
+                    <div key={i} className={[classes.toolCall, tc.status === 'done' ? classes.toolCallDone : ''].join(' ')}>
+                        <i className={TOOL_ICONS[tc.name] || 'fas fa-cog'}></i>
+                        <span>{tc.status === 'calling'
+                            ? `${TOOL_LABELS[tc.name] || tc.name}...`
+                            : `${TOOL_LABELS[tc.name] || tc.name}`
+                        }</span>
+                        {tc.status === 'done' && <i className={['fas','fa-check',classes.toolCheck].join(' ')}></i>}
+                    </div>
+                ))}
+            </div>
+        );
+    };
 
     return (
         <div className={chatBodyClasses.join(' ')}>
             <div className={classes.topBar}>
                 <div className={classes.status}>
-                <h4>Live Chat with San</h4>
-
-                {!messages.some((m) => { return (((new Date().getTime() - m.time)/1000)/60) < 60 && m.san})  ? <small className={classes.activeWhen}><i className="fas fa-circle"></i>Last active: {hour===0 ? 1 : hour} hours ago</small> : <small className={classes.activeWhen}><i className={['fas','fa-circle',classes.greenCircle].join(' ')}></i>Active Now</small>}
+                    <h4>Chat with San's AI Agent</h4>
+                    <small className={classes.activeWhen}>
+                        <i className={['fas','fa-circle',classes.greenCircle].join(' ')}></i>
+                        Always Online
+                    </small>
                 </div>
                 <div className={classes.icons}>
-                <i className={[classes.signOut,'fas','fa-sign-out-alt'].join(' ')} onClick={signOutHandler}></i>
-               <i className={iconClasses.join(' ')} onClick={onClick}></i>
-               </div>
+                    <i className={[classes.signOut,'fas','fa-sign-out-alt'].join(' ')} onClick={signOutHandler}></i>
+                    <i className={iconClasses.join(' ')} onClick={onClick}></i>
+                </div>
             </div>
-            
+
             <div className={classes.showcase}>
+                {isLoading ? (
+                    <div className={classes.blockOther}>
+                        <span className={classes.botLabel}>SN</span>
+                        <p className={classes.eachMessageOther}>
+                            <span className={classes.typingIndicator}>
+                                <span className={classes.dot}></span>
+                                <span className={classes.dot}></span>
+                                <span className={classes.dot}></span>
+                            </span>
+                        </p>
+                    </div>
+                ) : messages.map((m, index) => {
+                    const isBot = m.role === 'assistant';
+                    const messageClassName = isBot ? classes.eachMessageOther : classes.eachMessage;
+                    const blockClassName = isBot ? classes.blockOther : classes.block;
+                    const isLastAndStreaming = isStreaming && index === messages.length - 1 && isBot;
 
-
-                {
-                    
-                    loading ? <Loading/> 
-                    : error ? <div className={classes.error}><div className={classes.errorMessageContainer}><p>An Error Occured. Please Try Again!</p></div></div> 
-                    : (
-                        auth.currentUser && auth.currentUser.uid && messages && (
-                            messages.map((m,index) =>  {
-                                const messageClassName = m.san ? classes.eachMessageOther : classes.eachMessage;
-                                const blockClassName = m.san ? classes.blockOther : classes.block;
-                                return (
-                                    <div key={index}>
-                                    {(index === 0 ||(((m.time - messages[index-1].time)/1000)/60) > 60) && <p className={classes.time}>{m.createdAt}</p>}
-                                    <div className={blockClassName} onMouseLeave={()=> setShown(null)}>
-                                    <p className={messageClassName} onClick={()=>!Shown ? setShown(index+1) : setShown(null)}>{m.text}</p>
-                                    { !m.san && Shown && Shown === index+1 && <button className={classes.textDeleteButton} onClick={() => deleteMessageHandler(m)} ><i className={"fas fa-trash"}></i></button>}
-                                    </div>
-                                    </div>
-                                )
-                            })
-                        )
+                    return (
+                        <div key={index}>
+                            <div className={blockClassName}>
+                                {isBot && (
+                                    <span className={classes.botLabel}>SN</span>
+                                )}
+                                <div className={messageClassName}>
+                                    {isBot && renderToolCalls(m.toolCalls)}
+                                    {isBot ? (
+                                        <ReactMarkdown
+                                            remarkPlugins={[remarkGfm]}
+                                            components={{
+                                                a: ({node, ...props}) => <a {...props} target="_blank" rel="noopener noreferrer" />,
+                                                table: ({node, ...props}) => <div className={classes.tableWrap}><table {...props} /></div>,
+                                            }}
+                                        >
+                                            {m.content}
+                                        </ReactMarkdown>
+                                    ) : m.content}
+                                    {isLastAndStreaming && !m.content && (!m.toolCalls || m.toolCalls.length === 0) && (
+                                        <span className={classes.typingIndicator}>
+                                            <span className={classes.dot}></span>
+                                            <span className={classes.dot}></span>
+                                            <span className={classes.dot}></span>
+                                        </span>
+                                    )}
+                                    {isLastAndStreaming && m.content && (
+                                        <span className={classes.cursor}>|</span>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
                     )
-                }
-            
-               <div ref={messagesEndRef}/>
-
+                })}
+                <div ref={messagesEndRef}/>
             </div>
-            
+
 
             <form onSubmit={sendMessageHandler} className={classes.typeArea}>
-           <input type="text" 
-           value={message}
-           onChange={(e)=> setMessage(e.target.value)} 
-           placeholder="Type a message"/>
-           <button onClick={sendMessageHandler} className={classes.button}><i className="fas fa-paper-plane"></i></button>
-           </form>
-           <div className={classes.extraArea}>
-              <small>Chat is Live Now!<br/>Adding More Features!</small>
-           </div>
-           
+                <input type="text"
+                    ref={inputRef}
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    placeholder={isStreaming ? "Waiting for response..." : "Ask about San's experience..."}
+                    disabled={isStreaming}
+                />
+                <button type="submit" className={classes.button} disabled={isStreaming}>
+                    <i className="fas fa-paper-plane"></i>
+                </button>
+            </form>
+            <div className={classes.extraArea}>
+                <small>Powered by AI &middot; Ask me about San's skills, experience & projects</small>
+            </div>
         </div>
     )
 }

@@ -4,7 +4,7 @@ import profileImage from '../../../assets/mywebsiteprofile2.jpg'
 import Button from '../../../component/Button/Button'
 import Aboutme from '../../../component/Aboutme/Aboutme'
 import Skill from '../../../component/Skill/Skill'
-import Resume from '../../../assets/project-images/MyResume.pdf'
+const Resume = '/San_Nge_Resume.docx'
 
 function Home() {
 
@@ -21,11 +21,11 @@ function Home() {
             }}
             className={classes.name}>
                  San Nge 
-             </span><br/> Software Engineer</h1>
+             </span><br/> IT Manager / Software Engineer</h1>
             </div>
              <div className={classes.Button}>
         
-                <a href={Resume} download="San Nge's Resume.pdf" rel="noopener noreferrer" target="_blank">
+                <a href={Resume} download="San Nge's Resume.docx" rel="noopener noreferrer" target="_blank">
                     <Button>
                     <i className="fas fa-download" style={{marginRight:'3px'}}/>Resume
                     </Button>
@@ -36,7 +36,7 @@ function Home() {
                  <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sam.nge.507">
                      <i className='fab fa-facebook'></i>
                  </a>
-                 <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/san-nge-695b16180">
+                 <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/san-nge">
                      <i className='fab fa-linkedin'></i>
                  </a>
                  <a target="_blank" rel="noopener noreferrer" href="https://www.github.com/sannge">
@@ -44,7 +44,7 @@ function Home() {
                  </a>
              </div>
             <div className={classes.Image}>
-            <img src={profileImage} alt=""/>
+            <img src={profileImage.src} alt=""/>
             </div>
         </div>
         <div className={classes.stats}>

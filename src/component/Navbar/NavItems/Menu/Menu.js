@@ -1,43 +1,46 @@
 import React from 'react'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 import classes from './Menu.module.css'
-import {NavLink} from 'react-router-dom'
+
 function Menu(props) {
-    let CLASS = [classes.Menu];
-    if(props.openMenu){
-        CLASS.push(classes.active);
-    }
-    return (
-        <div className={CLASS.join(' ')}>
-            <div className={classes.itemsContainer}>
-            <ul>
-                <li>
-                   <NavLink  exact onClick={props.clickHandler} activeClassName={classes.active} className={classes.link} to='/'>
-                       <i className={'fas fa-home'}></i>
-                       Home
-                       </NavLink> 
-                </li>
-                <li>
-                   <NavLink exact onClick={props.clickHandler} activeClassName={classes.active} className={classes.link} to='/experience'>
-                   <i className={'fas fa-briefcase'}></i>
-                       Experience
-                       </NavLink> 
-                </li>
-                <li>
-                   <NavLink exact onClick={props.clickHandler} activeClassName={classes.active} className={classes.link} to='/projects'>
-                   <i className={'fas fa-folder-open'}></i>
-                       Projects
-                       </NavLink> 
-                </li>
-                <li>
-                   <NavLink exact onClick={props.clickHandler} activeClassName={classes.active} className={classes.link}to='/contact'>
-                   <i className={'fas fa-address-book'}></i>
-                       Contact Info
-                       </NavLink> 
-                </li>
-            </ul>
-            </div>
-        </div>
-    )
+  const router = useRouter()
+
+  let CLASS = [classes.Menu]
+  if (props.openMenu) {
+    CLASS.push(classes.active)
+  }
+
+  const navItems = [
+    { href: '/', icon: 'fas fa-home', label: 'Home' },
+    { href: '/experience', icon: 'fas fa-briefcase', label: 'Experience' },
+    { href: '/projects', icon: 'fas fa-folder-open', label: 'Projects' },
+    { href: '/contact', icon: 'fas fa-address-book', label: 'Contact Info' },
+  ]
+
+  return (
+    <div className={CLASS.join(' ')}>
+      <div className={classes.itemsContainer}>
+        <ul>
+          {navItems.map(({ href, icon, label }) => {
+            const isActive = router.pathname === href
+            return (
+              <li key={href}>
+                <Link
+                  href={href}
+                  onClick={props.clickHandler}
+                  className={[classes.link, isActive ? classes.active : ''].join(' ')}
+                >
+                  <i className={icon}></i>
+                  {label}
+                </Link>
+              </li>
+            )
+          })}
+        </ul>
+      </div>
+    </div>
+  )
 }
 
 export default Menu

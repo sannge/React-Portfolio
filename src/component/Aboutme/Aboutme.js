@@ -10,14 +10,14 @@ function Aboutme() {
                 </div> */}
 				<div className={classes.AboutmeMain}>
 					<p>
-						I am a Proactive Full Stack Developer currently working for
-						Bitbroker Labs. I spend most of my free time learning new topics on
-						web and mobile development and building projects with them. I am
-						comfortable building MERNG/PERNG Stack/ASP.NET Core applications and
-						familiar building Social Media Applications, e-commerce Websites,
-						Affiliate Tracking Platforms, and more. My hobbies are Coding,
-						Hiking, and Cooking. I am also open to work currently, either
-						in-person or remote, and willing to relocate anywhere in the US.
+						Full-Stack Software Engineer with nearly a decade of technical
+						experience, recently promoted to IT Manager at Foxconn Industrial
+						Internet (FII-NA). I architect enterprise manufacturing systems and
+						deploy AI-powered applications to production, having delivered 15+
+						applications serving 1,000+ daily users across 6 business units. I
+						design and ship RAG-based AI agents using OpenAI Agent SDK and
+						PostgreSQL pgvector. My core expertise is in C# / .NET Core,
+						Next.js, React, SQL Server, and LLM engineering.
 					</p>
 				</div>
 			</div>
