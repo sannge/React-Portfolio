@@ -3,7 +3,7 @@ import json
 import time
 import requests as http_requests
 from fastapi import FastAPI, Request
-from fastapi.responses import StreamingResponse, JSONResponse
+from fastapi.responses import StreamingResponse, JSONResponse, RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
 from agents import Agent, Runner, WebSearchTool, function_tool
 from openai.types.responses import ResponseTextDeltaEvent
@@ -422,6 +422,33 @@ async def chat(request: Request):
         media_type="text/event-stream",
         headers={"Cache-Control": "no-cache", "Connection": "keep-alive"},
     )
+
+
+DOWNLOAD_FILES = {
+    "resume": "files/resume.docx",
+    "cover-letter": "files/cover-letter.docx",
+}
+
+
+@app.get("/api/download")
+async def download(file: str = ""):
+    pathname = DOWNLOAD_FILES.get(file)
+    if not pathname:
+        return JSONResponse(status_code=404, content={"error": "File not found"})
+    if not BLOB_TOKEN:
+        return JSONResponse(status_code=500, content={"error": "Storage not configured"})
+    try:
+        r = http_requests.get(
+            BLOB_API,
+            headers={"Authorization": f"Bearer {BLOB_TOKEN}"},
+            params={"prefix": pathname, "limit": "1"},
+        )
+        blobs = r.json().get("blobs", [])
+        if not blobs:
+            return JSONResponse(status_code=404, content={"error": "File not uploaded yet"})
+        return RedirectResponse(url=blobs[0]["url"])
+    except Exception:
+        return JSONResponse(status_code=500, content={"error": "Failed to retrieve file"})
 
 
 @app.get("/api/health")

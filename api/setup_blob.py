@@ -31,6 +31,23 @@ def blob_write(pathname, data, content_type="application/json"):
     print(f"  {pathname}: {r.status_code}")
 
 
+def blob_upload_file(pathname, filepath, content_type):
+    """Upload a binary file to Vercel Blob."""
+    with open(filepath, "rb") as f:
+        data = f.read()
+    r = requests.put(
+        f"{BLOB_API}/{pathname}",
+        headers={
+            "Authorization": f"Bearer {BLOB_TOKEN}",
+            "x-api-version": "7",
+            "x-content-type": content_type,
+            "x-add-random-suffix": "0",
+        },
+        data=data,
+    )
+    print(f"  {pathname}: {r.status_code}")
+
+
 # ── Directory ──────────────────────────────────────────────────────────────
 directory = {
     "profile": {
@@ -207,6 +224,17 @@ def main():
 
     print("\nUploading memories.json...")
     blob_write("memories.json", memories)
+
+    print("\nUploading downloadable files...")
+    files_to_upload = {
+        "files/resume.docx": ("public/San_Nge_Resume.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"),
+        "files/cover-letter.docx": ("public/San_Nge_Cover_Letter.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"),
+    }
+    for blob_path, (local_path, ctype) in files_to_upload.items():
+        if os.path.exists(local_path):
+            blob_upload_file(blob_path, local_path, ctype)
+        else:
+            print(f"  SKIP {local_path} (not found)")
 
     print("\nDone! All initial data uploaded to Vercel Blob.")
 

@@ -4,7 +4,7 @@ import profileImage from "../../../assets/mywebsiteprofile2.jpg";
 import Button from "../../../component/Button/Button";
 import Aboutme from "../../../component/Aboutme/Aboutme";
 import Skill from "../../../component/Skill/Skill";
-const Resume = "/San_Nge_Resume.docx";
+const Resume = "/api/download?file=resume";
 
 function Home() {
   return (
