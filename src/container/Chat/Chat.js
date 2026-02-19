@@ -30,6 +30,7 @@ function Chat() {
           return;
         }
         const provider = new firebase.auth.GoogleAuthProvider();
+        provider.setCustomParameters({ prompt: 'select_account' });
         auth.signInWithPopup(provider);
       }
     }
