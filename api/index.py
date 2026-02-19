@@ -282,13 +282,18 @@ def _load_directory():
     return directory or {"profile": {"summary": "", "sections": {}}, "memory_categories": []}
 
 
-def _build_prompt(directory, is_admin):
+def _build_prompt(directory, is_admin, visitor_name="", visitor_email=""):
     profile = directory.get("profile", {})
     profile_summary = profile.get("summary", "")
     sections = profile.get("sections", {})
     memory_cats = directory.get("memory_categories", [])
 
     lines = [SYSTEM_PROMPT_BASE]
+
+    lines.append(f"\n## Current Visitor")
+    lines.append(f"- **Name**: {visitor_name or 'Unknown'}")
+    lines.append(f"- **Email**: {visitor_email or 'Unknown'}")
+    lines.append("Use the visitor's name naturally in conversation. You already have their name and email — no need to ask again unless they want to use a different one for `send_contact_email`.\n")
     lines.append("\n## Knowledge Base Directory\n")
     lines.append(f"**{profile_summary}**\n")
     lines.append("Available profile sections (use `load_topic(section)` for full details):\n")
@@ -360,6 +365,7 @@ async def chat(request: Request):
     messages = body.get("messages", [])[-20:]
     user_id = body.get("userId", "anonymous")
     user_email = body.get("userEmail", "")
+    visitor_name = body.get("visitorName", "")
 
     if not messages:
         return JSONResponse(status_code=400, content={"error": "No messages provided"})
@@ -380,7 +386,7 @@ async def chat(request: Request):
     # Build dynamic prompt from directory
     is_admin = _is_admin(user_email)
     directory = _load_directory()
-    prompt = _build_prompt(directory, is_admin)
+    prompt = _build_prompt(directory, is_admin, visitor_name, user_email)
 
     agent = Agent(
         name="San's AI Digital Twin" + (" (Admin)" if is_admin else ""),
