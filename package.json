@@ -14,9 +14,9 @@
     "next": "^14.2.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
-    "react-firebase-hooks": "^2.2.0",
+    "react-firebase-hooks": "^3.0.0",
     "react-markdown": "^10.1.0",
-    "react-paginate": "^6.5.0",
+    "react-paginate": "^8.2.0",
     "react-transition-group": "^4.4.1",
     "remark-gfm": "^4.0.1"
   }

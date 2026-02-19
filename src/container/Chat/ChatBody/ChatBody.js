@@ -9,15 +9,23 @@ const WELCOME_MESSAGE = { role: 'assistant', content: "Hi! I'm San's AI Agent. A
 const MAX_STORED_MESSAGES = 50;
 
 const TOOL_ICONS = {
+    load_topic: 'fas fa-folder-open',
     save_memory: 'fas fa-brain',
     get_memories: 'fas fa-book-open',
+    delete_memory: 'fas fa-trash-alt',
+    update_profile: 'fas fa-user-edit',
     web_search: 'fas fa-search',
+    send_contact_email: 'fas fa-envelope',
 };
 
 const TOOL_LABELS = {
+    load_topic: 'Looking up details',
     save_memory: 'Saving to memory',
     get_memories: 'Retrieving memories',
+    delete_memory: 'Removing memory',
+    update_profile: 'Updating profile',
     web_search: 'Searching the web',
+    send_contact_email: 'Sending email to San',
 };
 
 function ChatBody({onClick,chatBodyClasses,iconClasses,signOutHandler,username}) {
@@ -25,6 +33,7 @@ function ChatBody({onClick,chatBodyClasses,iconClasses,signOutHandler,username})
     const [messages, setMessages] = useState([WELCOME_MESSAGE]);
     const [isStreaming, setIsStreaming] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [showClearConfirm, setShowClearConfirm] = useState(false);
     const messagesEndRef = useRef(null);
     const abortControllerRef = useRef(null);
     const inputRef = useRef(null);
@@ -83,6 +92,23 @@ function ChatBody({onClick,chatBodyClasses,iconClasses,signOutHandler,username})
             updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
         }).catch(() => {});
     }, []);
+
+    const clearChatHandler = () => setShowClearConfirm(true);
+
+    const confirmClearChat = () => {
+        if(isStreaming && abortControllerRef.current) {
+            abortControllerRef.current.abort();
+        }
+        setMessages([WELCOME_MESSAGE]);
+        setMessage('');
+        setIsStreaming(false);
+        setShowClearConfirm(false);
+        const uid = auth.currentUser?.uid;
+        if(uid) {
+            firestore.collection('chats').doc(uid).delete().catch(() => {});
+        }
+        setTimeout(() => inputRef.current?.focus(), 0);
+    };
 
     const sendMessageHandler = async (e) => {
         e.preventDefault();
@@ -271,6 +297,7 @@ function ChatBody({onClick,chatBodyClasses,iconClasses,signOutHandler,username})
                     </small>
                 </div>
                 <div className={classes.icons}>
+                    <i className={[classes.clearChat,'fas','fa-redo-alt'].join(' ')} onClick={clearChatHandler} title="Clear chat"></i>
                     <i className={[classes.signOut,'fas','fa-sign-out-alt'].join(' ')} onClick={signOutHandler}></i>
                     <i className={iconClasses.join(' ')} onClick={onClick}></i>
                 </div>
@@ -331,6 +358,18 @@ function ChatBody({onClick,chatBodyClasses,iconClasses,signOutHandler,username})
                 <div ref={messagesEndRef}/>
             </div>
 
+
+            {showClearConfirm && (
+                <div className={classes.modalOverlay} onClick={() => setShowClearConfirm(false)}>
+                    <div className={classes.modal} onClick={e => e.stopPropagation()}>
+                        <p>Clear entire conversation?</p>
+                        <div className={classes.modalButtons}>
+                            <button className={classes.modalCancel} onClick={() => setShowClearConfirm(false)}>Cancel</button>
+                            <button className={classes.modalConfirm} onClick={confirmClearChat}>Clear</button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             <form onSubmit={sendMessageHandler} className={classes.typeArea}>
                 <input type="text"
