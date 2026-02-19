@@ -20,24 +20,17 @@ function Chat() {
       if(stored) setUsername(stored);
     }, []);
 
-    const isEmbeddedBrowser = () => {
-      const ua = navigator.userAgent || '';
-      return /FBAN|FBAV|Instagram|Messenger|Line|Twitter|MicroMessenger|Snapchat/i.test(ua);
-    };
-
     const signInHandler = (e) => {
       e.preventDefault();
       localStorage.setItem("username",username);
       if(username) {
-        if(isEmbeddedBrowser()) {
-          // Embedded browsers (Messenger, FB, IG) block Google OAuth
-          const url = window.location.href;
-          window.open(url, '_system');
-          alert('Please open this site in your browser (Safari/Chrome) to sign in with Google.');
+        const ua = navigator.userAgent || '';
+        if(/FBAN|FBAV|Instagram|Messenger|Line|Twitter|MicroMessenger|Snapchat/i.test(ua)) {
+          alert('Please open this site in Safari or Chrome to sign in. Embedded browsers (Messenger, Facebook, etc.) block Google sign-in.');
           return;
         }
         const provider = new firebase.auth.GoogleAuthProvider();
-        auth.signInWithRedirect(provider);
+        auth.signInWithPopup(provider);
       }
     }
 
